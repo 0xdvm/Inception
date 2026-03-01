@@ -14,6 +14,8 @@ services:
     volumes:
       - mariadb-volume:/var/lib/mysql
     restart: always
+    networks:
+      - backend
 
 secrets:
   mysql_root_password:
@@ -23,3 +25,6 @@ secrets:
 
 volumes:
   mariadb-volume:
+
+networks:
+  backend:
