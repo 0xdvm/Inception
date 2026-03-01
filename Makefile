@@ -18,6 +18,10 @@ down:
 down-volumes:
 	$(COMPOSE) down -v
 
+# Para containers e remove imagens
+down-all:
+	$(COMPOSE) down --rmi all
+
 # Reconstrói as imagens e inicia os containers
 rebuild:
 	$(COMPOSE) up -d --build
@@ -37,6 +41,10 @@ ps:
 # Para os containers mas mantem volumes e imagens
 stop:
 	$(COMPOSE) stop
+
+# Parar um serviço específico
+stop-%:
+	$(COMPOSE) stop $*
 
 # Executa um comando dentro de um container
 exec-%:
