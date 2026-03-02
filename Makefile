@@ -6,6 +6,10 @@ SERVICES = mariadb wordpress nginx
 # Comandos principais
 # -------------------------------
 
+# Reconstrói as imagens e inicia os containers
+build:
+	$(COMPOSE) up -d --build
+
 # Inicia todos os containers em background
 up:
 	$(COMPOSE) up -d
@@ -21,10 +25,6 @@ down-volumes:
 # Para containers e remove imagens
 down-all:
 	$(COMPOSE) down --rmi all
-
-# Reconstrói as imagens e inicia os containers
-rebuild:
-	$(COMPOSE) up -d --build
 
 # Mostra logs de todos os serviços
 logs:
