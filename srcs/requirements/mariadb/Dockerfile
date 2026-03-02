@@ -1,8 +1,11 @@
 # Usar a penultima versao do apline com imagem base 
-FROM alpine:3.22
+FROM debian:bookworm-slim
 
-# Instalar o mariadb dentro dele
-RUN apk add --no-cache mariadb bash
+# Atualiza pacotes, instala MariaDB e limpa cache do apt
+RUN apt update && \
+    apt install -y mariadb-server mariadb-client && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copiar o arquivo de configuracao 50-server.cnf para a pasta indicada.
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/

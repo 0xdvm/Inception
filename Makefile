@@ -24,7 +24,7 @@ down-volumes:
 
 # Para containers e remove imagens
 down-all:
-	$(COMPOSE) down --rmi all
+	$(COMPOSE) down -v --rmi all
 
 # Mostra logs de todos os serviços
 logs:
@@ -48,7 +48,7 @@ stop-%:
 
 # Executa um comando dentro de um container
 exec-%:
-	$(COMPOSE) exec $* bash
+	$(COMPOSE) exec $* sh
 
 # Remove containers parados
 clean:
