@@ -1,5 +1,5 @@
 # Nome dos serviços
-COMPOSE = cd srcs && docker compose
+COMPOSE = @cd srcs && docker compose
 SERVICES = mariadb wordpress nginx
 
 # -------------------------------

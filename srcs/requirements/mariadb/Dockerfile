@@ -8,10 +8,10 @@ RUN apk add --no-cache mariadb bash
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 #Copiar o aruivo entrypoint.sh para o diretorio /usr/local/bin
-COPY ./entrypoint.sh ./usr/local/bin/entrypoint.sh
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 
 #Removvendo as permissoes o script de configuracao. 
-RUN ./usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 #Rodando o script de configuracao.
-ENTRYPOINT [ "./entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
