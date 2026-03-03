@@ -10,10 +10,10 @@ RUN apk update && \
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 # Copiar o aruivo entrypoint.sh para o diretorio /usr/local/bin
-COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./init.sh /usr/local/bin/init.sh
 
 # Removvendo as permissoes o script de configuracao. 
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/init.sh
 
 # Rodando o script de configuracao.
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/init.sh" ]
