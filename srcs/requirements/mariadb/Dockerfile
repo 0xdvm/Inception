@@ -1,20 +1,19 @@
 # Usar a penultima versao do apline com imagem base 
-FROM debian:bookworm-slim
+FROM alpine:3.22
 
-# Atualiza pacotes, instala MariaDB e limpa cache do apt
-RUN apt update && \
-    apt install -y mariadb-server mariadb-client && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
+# Atualiza pacotes, instala MariaDB e limpa cache do apk
+RUN apk update && \
+    apk add --no-cache mariadb mariadb-client && \
+    rm -f /var/cache/apk/* 
 
 # Copiar o arquivo de configuracao 50-server.cnf para a pasta indicada.
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
-#Copiar o aruivo entrypoint.sh para o diretorio /usr/local/bin
+# Copiar o aruivo entrypoint.sh para o diretorio /usr/local/bin
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 
-#Removvendo as permissoes o script de configuracao. 
+# Removvendo as permissoes o script de configuracao. 
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-#Rodando o script de configuracao.
+# Rodando o script de configuracao.
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
