@@ -1,5 +1,7 @@
 # Nome dos serviços
-COMPOSE = @cd srcs && docker compose
+COMPOSE_PROJECT_NAME=inception
+
+COMPOSE = @cd srcs && docker compose -p $(COMPOSE_PROJECT_NAME)
 SERVICES = mariadb wordpress nginx
 
 # -------------------------------
@@ -8,6 +10,8 @@ SERVICES = mariadb wordpress nginx
 
 # Reconstrói as imagens e inicia os containers
 build:
+	sudo mkdir -p /home/dvemba/data/mariadb
+	sudo chmod -R 777 /home/dvemba/data
 	$(COMPOSE) up -d --build
 
 # Inicia todos os containers em background
