@@ -9,12 +9,15 @@ mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql $MYSQL_DATADIR
 
+FIRST_RUN=0
+
 if [ ! -d "$MYSQL_DATADIR/mysql" ]; then
     echo "Instalando tabelas de sistema do MariaDB..."
     mariadb-install-db --user=mysql --datadir=$MYSQL_DATADIR > /dev/null
+    FIRST_RUN=1
 fi
 
-if [ ! -d "$MYSQL_DATADIR/$MYSQL_DATABASE" ]; then
+if [ "$FIRST_RUN" -eq 1 ]; then
     echo "Iniciando configuração inicial..."
     mariadbd --user=mysql --skip-networking &
     pid="$!"
@@ -25,12 +28,22 @@ if [ ! -d "$MYSQL_DATADIR/$MYSQL_DATABASE" ]; then
     done
 
     echo "\n\n\n a senha e eesta: $MYSQL_PASSWORD \n\n\n"
-    mariadb -u root << EOF
+    mariadb -u root <<EOF
         FLUSH PRIVILEGES;
+
         ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
+
         CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
-        CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+
+        CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
         GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
+
+        CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';
+        GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'localhost';
+
+        DELETE FROM mysql.user WHERE User='';
+        DROP DATABASE IF EXISTS test;
+        
         FLUSH PRIVILEGES;
 EOF
     kill "$pid"
