@@ -11,6 +11,7 @@ SERVICES = mariadb wordpress nginx
 # Reconstrói as imagens e inicia os containers
 build:
 	sudo mkdir -p /home/dvemba/data/mariadb
+	sudo mkdir -p /home/dvemba/data/wordpress
 	sudo chmod -R 777 /home/dvemba/data
 	$(COMPOSE) up -d --build
 

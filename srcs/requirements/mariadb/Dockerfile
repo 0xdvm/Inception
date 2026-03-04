@@ -15,5 +15,7 @@ COPY ./init.sh /usr/local/bin/init.sh
 # Removvendo as permissoes o script de configuracao. 
 RUN chmod +x /usr/local/bin/init.sh
 
+EXPOSE 3306
+
 # Rodando o script de configuracao.
 ENTRYPOINT [ "/usr/local/bin/init.sh" ]
