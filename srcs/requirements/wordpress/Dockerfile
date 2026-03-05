@@ -6,6 +6,18 @@ RUN apk update && apk add --no-cache php php-fpm php-mysqli php-json php-session
 php-opcache php-gd php-curl php-xml php-mbstring php-zip php-phar \
 wget tar
 
+# 
+RUN wget https://wordpress.org/latest.tar.gz \
+    && tar -xzf latest.tar.gz \
+    && rm latest.tar.gz
+    
+# cria diretório se não existir e move WordPress
+RUN mkdir -p /var/www/html && mv wordpress /var/www/html
+
+# Cria usuário www-data
+RUN getent group www-data || addgroup -S www-data \
+ && id -u www-data || adduser -S -G www-data www-data
+
 # Copia o arquivo www.conf para o diretorio indicado
 COPY ./conf/www.conf /etc/php83/php-fpm.d/www.conf
 
@@ -28,4 +40,5 @@ RUN chmod +x /usr/local/bin/init.sh
 EXPOSE 9000
 
 # Executa o script 
-CMD ["/usr/local/bin/init.sh"]
+ENTRYPOINT [ "/usr/local/bin/init.sh" ]
+# CMD sh

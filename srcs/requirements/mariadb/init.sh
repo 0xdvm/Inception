@@ -1,7 +1,7 @@
 #!/bin/sh
 
 MYSQL_ROOT_PASSWORD=$(cat $MYSQL_ROOT_PASSWORD_FILE)
-MYSQL_PASSWORD=$(cat $MYSQL_PASSWORD_FILE)
+DB_PASSWORD=$(cat $MYSQL_PASSWORD_FILE)
 
 MYSQL_DATADIR=/var/lib/mysql
 
@@ -27,19 +27,19 @@ if [ "$FIRST_RUN" -eq 1 ]; then
         sleep 1
     done
 
-    echo "\n\n\n a senha e eesta: $MYSQL_PASSWORD \n\n\n"
+    # echo "\n\n\n a senha e eesta: $MYSQL_PASSWORD \n\n\n"
     mariadb -u root <<EOF
         FLUSH PRIVILEGES;
 
         ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
 
-        CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
+        CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;
 
-        CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
-        GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
+        CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '$DB_PASSWORD';
+        GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${MYSQL_USER}'@'%';
 
-        CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';
-        GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'localhost';
+        CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD';
+        GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'localhost';
 
         DELETE FROM mysql.user WHERE User='';
         DROP DATABASE IF EXISTS test;
