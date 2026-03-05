@@ -12,7 +12,7 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 # Copiar o aruivo entrypoint.sh para o diretorio /usr/local/bin
 COPY ./init.sh /usr/local/bin/init.sh
 
-# Removvendo as permissoes o script de configuracao. 
+# Removendo as permissoes o script de configuracao. 
 RUN chmod +x /usr/local/bin/init.sh
 
 EXPOSE 3306

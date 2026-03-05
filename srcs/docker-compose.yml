@@ -31,7 +31,7 @@ services:
       - mysql_root_password
       - mysql_user_password
     volumes:
-      - wp_data:/var/www/html
+      - wp_data:/var/www/html/wordpress
     restart: always
     networks:
       - inception
