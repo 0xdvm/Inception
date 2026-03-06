@@ -4,7 +4,7 @@ FROM alpine:3.22
 # Atualizando os pacotes e instalando o php, php-fpm e as extensoes necessaria
 RUN apk update && apk add --no-cache php php-fpm php-mysqli php-json php-session \
 php-opcache php-gd php-curl php-xml php-mbstring php-zip php-phar \
-wget tar
+wget tar mysql-client
 
 # Baixando os arquivos do wordpress
 RUN wget https://wordpress.org/latest.tar.gz \
