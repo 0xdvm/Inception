@@ -26,7 +26,7 @@ if [ ! -f wp-config.php ]; then
     wp config create \
     --dbname=$DB_NAME \
     --dbuser=$DB_USER \
-    --dbpass=$DB_PASS\
+    --dbpass=$DB_PASS \
     --dbhost=$DB_HOST \
     --skip-check \
     --allow-root

@@ -6,7 +6,7 @@ RUN apk update && apk add --no-cache php php-fpm php-mysqli php-json php-session
 php-opcache php-gd php-curl php-xml php-mbstring php-zip php-phar \
 wget tar
 
-# 
+# Baixando os arquivos do wordpress
 RUN wget https://wordpress.org/latest.tar.gz \
     && tar -xzf latest.tar.gz \
     && rm latest.tar.gz

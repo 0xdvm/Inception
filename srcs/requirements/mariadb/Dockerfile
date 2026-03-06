@@ -7,7 +7,7 @@ RUN apk update && \
     rm -f /var/cache/apk/* 
 
 # Copiar o arquivo de configuracao 50-server.cnf para a pasta indicada.
-COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 
 # Copiar o aruivo entrypoint.sh para o diretorio /usr/local/bin
 COPY ./init.sh /usr/local/bin/init.sh
