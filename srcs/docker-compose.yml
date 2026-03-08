@@ -41,8 +41,22 @@ services:
       - inception
     depends_on:
       - mariadb
-    
-
+  # nginx service
+  nginx:
+    build: ./requirements/nginx/ 
+    image: nginx
+    container_name: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - wp_data:/var/www/html/wordpress
+    restart: always
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+      - mariadb
+  
 secrets:
   mysql_root_password:
     file: ../secrets/mysql_root_password.txt
