@@ -6,8 +6,16 @@ WP_ADMIN_PASS=$(cat $WP_ADMIN_PASSWORD_FILE)
 WP_USER_PASS=$(cat $WP_USER_PASSWORD_FILE)
 
 # Espera até MariaDB responder
+MAX_TRIES=15
+COUNT=0
+
 until mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" -e "select 1" >/dev/null 2>&1; do
-  echo "Aguardando MariaDB..."
+  COUNT=$((COUNT+1))
+  echo "Aguardando MariaDB... tentativa $COUNT/$MAX_TRIES"
+  if [ $COUNT -ge $MAX_TRIES ]; then
+    echo "Erro: MariaDB não respondeu após $MAX_TRIES tentativas."
+    exit 1
+  fi
   sleep 2
 done
 
