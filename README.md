@@ -27,30 +27,34 @@ dedicated Docker network.
 
 ```
 .
+├── DEV_DOC.md
 ├── Makefile
+├── README.md
 ├── secrets
 │   ├── mysql_root_password.txt
 │   ├── mysql_user_password.txt
 │   ├── wp_admin_password.txt
 │   └── wp_user_password.txt
-└── srcs
-    ├── docker-compose.yml
-    └── requirements
-        ├── mariadb
-        │   ├── conf
-        │   │   └── mariadb-server.cnf
-        │   ├── Dockerfile
-        │   └── init.sh
-        ├── nginx
-        │   ├── conf
-        │   │   └── nginx.conf
-        │   └── Dockerfile
-        └── wordpress
-            ├── conf
-            │   ├── php.ini
-            │   └── www.conf
-            ├── Dockerfile
-            └── init.sh
+├── srcs
+│   ├── docker-compose.yml
+│   └── requirements
+│       ├── mariadb
+│       │   ├── conf
+│       │   │   └── mariadb-server.cnf
+│       │   ├── Dockerfile
+│       │   └── init.sh
+│       ├── nginx
+│       │   ├── conf
+│       │   │   └── nginx.conf
+│       │   └── Dockerfile
+│       └── wordpress
+│           ├── conf
+│           │   ├── php.ini
+│           │   └── www.conf
+│           ├── Dockerfile
+│           └── init.sh
+└── USER_DOC.md
+
 ```
 
 This structure separates each service configuration clearly, improving
