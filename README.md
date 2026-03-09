@@ -25,30 +25,33 @@ dedicated Docker network.
 
 ## Project Structure
 
-. ├── Makefile
-├── secrets/
-│ ├── mysql_root_password.txt
-│ ├── mysql_user_password.txt
-│ ├── wp_admin_password.txt
-│ └── wp_user_password.txt
-└── srcs/
-├── docker-compose.yml
-└── requirements/
-├── mariadb/
-│ ├── conf/
-│ │ └── mariadb-server.cnf
-│ ├── Dockerfile
-│ └── init.sh
-├── nginx/
-│ ├── conf/
-│ │ └── nginx.conf
-│ └── Dockerfile
-└── wordpress/
-├── conf/
-│ ├── php.ini
-│ └── www.conf
-├── Dockerfile
-└── init.sh
+```
+.
+├── Makefile
+├── secrets
+│   ├── mysql_root_password.txt
+│   ├── mysql_user_password.txt
+│   ├── wp_admin_password.txt
+│   └── wp_user_password.txt
+└── srcs
+    ├── docker-compose.yml
+    └── requirements
+        ├── mariadb
+        │   ├── conf
+        │   │   └── mariadb-server.cnf
+        │   ├── Dockerfile
+        │   └── init.sh
+        ├── nginx
+        │   ├── conf
+        │   │   └── nginx.conf
+        │   └── Dockerfile
+        └── wordpress
+            ├── conf
+            │   ├── php.ini
+            │   └── www.conf
+            ├── Dockerfile
+            └── init.sh
+```
 
 This structure separates each service configuration clearly, improving
 maintainability and modularity.
